@@ -12,7 +12,7 @@ Use Emacs to create Git repositories in github.com.
 
 Then run `M-x ma-github-create-repo` in Emacs, which will:
 
-* create the github repository
+* create the repository in github.com
 
 * create a folder for the local repository, and `git init` it
 
