@@ -29,3 +29,12 @@
                            (getenv "GITHUB_USER") "/"
                            repo-name ".git"))
     repo-dir))
+
+(defun ma-github-kickstart-local-repo (repo-dir)
+  "Do a kickstart on the local repository"
+  (interactive)
+  (message repo-dir)
+  (shell-command (concat "touch " repo-dir "/README"))
+  (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
+  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'"))
+  (shell-command (concat "git -C " repo-dir " push -u origin master")))
