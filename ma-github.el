@@ -18,3 +18,14 @@
     (if (not (file-directory-p newdir))
         (make-directory newdir))
     newdir))
+
+(defun ma-github-create-local-repo (repo-name)
+  "Create a new repository locally"
+  (interactive)
+  (let ((repo-dir (ma-github-create-local-repo-dir repo-name)))
+    (shell-command (concat "git -C " repo-dir " init ."))
+    (shell-command (concat "git -C " repo-dir " remote add origin "
+                           "git@github.com:"
+                           (getenv "GITHUB_USER") "/"
+                           repo-name ".git"))
+    repo-dir))
