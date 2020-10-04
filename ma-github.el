@@ -10,3 +10,11 @@
       "https://api.github.com/user/repos "
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
+
+(defun ma-github-create-local-repo-dir (repo-name)
+  "Create a new folder for the repository"
+  (interactive)
+  (let ((newdir (read-directory-name "Path for the new repository " repo-name)))
+    (if (not (file-directory-p newdir))
+        (make-directory newdir))
+    newdir))
