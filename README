@@ -1,0 +1,5 @@
+Some Github API functionality for Emacs.
+
+At the moment it can create a repository in github.com from inside emacs.
+
+You'll need a personal access token from Github, that you can create at https://github.com/settings/tokens/new.
