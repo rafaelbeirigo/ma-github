@@ -38,3 +38,11 @@
   (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'"))
   (shell-command (concat "git -C " repo-dir " push -u origin master")))
+
+(defun ma-github-create-repo ()
+  "Create a new repository both locally and in github.com"
+  (interactive)
+  (let ((repo-name (ma-github-create-github-repo)))
+    (let ((repo-dir (ma-github-create-local-repo repo-name)))
+      (message (concat "esse: " repo-dir))
+      (ma-github-kickstart-local-repo repo-dir))))
