@@ -51,8 +51,12 @@
 
 (defun ma-github-create-repo (do-push do-kickstart)
   "Create a new repository both locally and in github.com"
-  (interactive)
-  (let ((repo-name (ma-github-create-github-repo)))
-    (let ((repo-dir (ma-github-create-local-repo repo-name)))
-      (message (concat "esse: " repo-dir))
-      (ma-github-kickstart-local-repo repo-dir (yes-or-no-p "Push?")))))
+  (interactive (list (yes-or-no-p "Push?")
+                     (yes-or-no-p "Kickstart it (README and first commit)?")))
+  (let ((repo-info (ma-github-get-repo-name-and-dir)))
+    (let ((repo-name (pop repo-info))
+          (repo-dir (pop repo-info)))
+      (ma-github-create-local-repo repo-name repo-dir)
+      (ma-github-local-repo-add-remote repo-name repo-dir)
+      (when do-push (ma-github-local-repo-push-upstream repo-dir))
+      (when do-kickstart (ma-github-local-repo-kickstart repo-dir)))))
