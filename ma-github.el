@@ -11,14 +11,6 @@
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
 
-(defun ma-github-create-local-repo-dir (repo-name)
-  "Create a new folder for the repository"
-  (interactive "sRepository name ")
-  (let ((newdir (read-directory-name "Repository dir " repo-name)))
-    (if (not (file-directory-p newdir))
-        (make-directory newdir))
-    newdir))
-
 (defun ma-github-get-repo-dir (repo-name)
   "Asks for the repository local dir."
   (expand-file-name
@@ -33,6 +25,7 @@
 (defun ma-github-create-local-repo (repo-name repo-dir)
   "Create a new repository locally"
   (interactive (ma-github-get-repo-name-and-dir))
+  (make-directory repo-dir)
   (shell-command (concat "git -C " repo-dir " init ."))
   (shell-command (concat "git -C " repo-dir " remote add origin "
                          "git@github.com:"
