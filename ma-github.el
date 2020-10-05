@@ -20,6 +20,14 @@
     newdir))
 
 (defun ma-github-create-local-repo (repo-name)
+(defun ma-github-get-repo-name-and-dir ()
+  "Asks for the repository name and local dir."
+  (let ((repo-name (read-string "Repository name: ")))
+    ;; Create a list to return with repository's name and dir
+    (list repo-name
+          (expand-file-name
+           (read-directory-name "Repository dir " repo-name)))))
+
   "Create a new repository locally"
   (interactive "sRepository name ")
   (let ((repo-dir (ma-github-create-local-repo-dir repo-name)))
