@@ -14,7 +14,7 @@
 (defun ma-github-create-local-repo-dir (repo-name)
   "Create a new folder for the repository"
   (interactive)
-  (let ((newdir (read-directory-name "Path for the new repository " repo-name)))
+  (let ((newdir (read-directory-name "Repository dir " repo-name)))
     (if (not (file-directory-p newdir))
         (make-directory newdir))
     newdir))
