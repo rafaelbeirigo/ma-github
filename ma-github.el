@@ -37,7 +37,7 @@
   (shell-command (concat "git -C " repo-dir " init .")))
 
 (defun ma-github-local-repo-kickstart (repo-dir)
-  "Do a kickstart on the local repository"
+  "Add a README file and do the initial commit on the local repository."
   (interactive (list (read-directory-name "Repository dir: ")))
   (message repo-dir)
   (shell-command (concat "touch " repo-dir "/README"))
