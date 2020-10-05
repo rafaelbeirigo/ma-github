@@ -19,7 +19,6 @@
         (make-directory newdir))
     newdir))
 
-(defun ma-github-create-local-repo (repo-name)
 (defun ma-github-get-repo-name-and-dir ()
   "Asks for the repository name and local dir."
   (let ((repo-name (read-string "Repository name: ")))
@@ -28,15 +27,14 @@
           (expand-file-name
            (read-directory-name "Repository dir " repo-name)))))
 
+(defun ma-github-create-local-repo (repo-name repo-dir)
   "Create a new repository locally"
-  (interactive "sRepository name ")
-  (let ((repo-dir (ma-github-create-local-repo-dir repo-name)))
-    (shell-command (concat "git -C " repo-dir " init ."))
-    (shell-command (concat "git -C " repo-dir " remote add origin "
-                           "git@github.com:"
-                           (getenv "GITHUB_USER") "/"
-                           repo-name ".git"))
-    repo-dir))
+  (interactive (ma-github-get-repo-name-and-dir))
+  (shell-command (concat "git -C " repo-dir " init ."))
+  (shell-command (concat "git -C " repo-dir " remote add origin "
+                         "git@github.com:"
+                         (getenv "GITHUB_USER") "/"
+                         repo-name ".git")))
 
 (defun ma-github-kickstart-local-repo (repo-dir commit)
   "Do a kickstart on the local repository"
