@@ -30,14 +30,16 @@
                            repo-name ".git"))
     repo-dir))
 
-(defun ma-github-kickstart-local-repo (repo-dir)
+(defun ma-github-kickstart-local-repo (repo-dir commit)
   "Do a kickstart on the local repository"
-  (interactive "DRepository dir ")
+  (interactive (list (read-directory-name "Repository dir: ")
+                     (yes-or-no-p "Push?")))
   (message repo-dir)
   (shell-command (concat "touch " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'"))
-  (shell-command (concat "git -C " repo-dir " push -u origin master")))
+  (when commit
+    (shell-command (concat "git -C " repo-dir " push -u origin master"))))
 
 (defun ma-github-create-repo ()
   "Create a new repository both locally and in github.com"
@@ -45,4 +47,4 @@
   (let ((repo-name (ma-github-create-github-repo)))
     (let ((repo-dir (ma-github-create-local-repo repo-name)))
       (message (concat "esse: " repo-dir))
-      (ma-github-kickstart-local-repo repo-dir))))
+      (ma-github-kickstart-local-repo repo-dir (yes-or-no-p "Push?")))))
