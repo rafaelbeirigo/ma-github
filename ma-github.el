@@ -36,16 +36,13 @@
   (make-directory repo-dir)
   (shell-command (concat "git -C " repo-dir " init .")))
 
-(defun ma-github-local-repo-kickstart (repo-dir commit)
+(defun ma-github-local-repo-kickstart (repo-dir)
   "Do a kickstart on the local repository"
-  (interactive (list (read-directory-name "Repository dir: ")
-                     (yes-or-no-p "Push?")))
+  (interactive (list (read-directory-name "Repository dir: ")))
   (message repo-dir)
   (shell-command (concat "touch " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
-  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'"))
-  (when commit
-    (shell-command (concat "git -C " repo-dir " push -u origin master"))))
+  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'")))
 
 (defun ma-github-create-repo ()
 (defun ma-github-local-repo-push (repo-dir)
