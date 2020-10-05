@@ -21,7 +21,7 @@
 
 (defun ma-github-create-local-repo (repo-name)
   "Create a new repository locally"
-  (interactive)
+  (interactive "sRepository name ")
   (let ((repo-dir (ma-github-create-local-repo-dir repo-name)))
     (shell-command (concat "git -C " repo-dir " init ."))
     (shell-command (concat "git -C " repo-dir " remote add origin "
