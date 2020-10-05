@@ -49,14 +49,13 @@
   (shell-command
    (concat "git -C " repo-dir " push -u origin master")))
 
-(defun ma-github-create-repo (do-push do-kickstart)
+(defun ma-github-create-repo (repo-name repo-dir do-push do-kickstart)
   "Create a new repository both locally and in github.com"
-  (interactive (list (yes-or-no-p "Push?")
-                     (yes-or-no-p "Kickstart it (README and first commit)?")))
-  (let ((repo-info (ma-github-get-repo-name-and-dir)))
-    (let ((repo-name (pop repo-info))
-          (repo-dir (pop repo-info)))
-      (ma-github-create-local-repo repo-name repo-dir)
-      (ma-github-local-repo-add-remote repo-name repo-dir)
-      (when do-push (ma-github-local-repo-push-upstream repo-dir))
-      (when do-kickstart (ma-github-local-repo-kickstart repo-dir)))))
+  (interactive
+   (nconc (ma-github-get-repo-name-and-dir)
+          (list (yes-or-no-p "Push?")
+                (yes-or-no-p "Kickstart it (README and first commit)?"))))
+  (ma-github-create-local-repo repo-name repo-dir)
+  (ma-github-local-repo-add-remote repo-name repo-dir)
+  (when do-push (ma-github-local-repo-push-upstream repo-dir))
+  (when do-kickstart (ma-github-local-repo-kickstart repo-dir)))
