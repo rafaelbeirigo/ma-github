@@ -32,7 +32,7 @@
 
 (defun ma-github-kickstart-local-repo (repo-dir)
   "Do a kickstart on the local repository"
-  (interactive)
+  (interactive "DRepository dir ")
   (message repo-dir)
   (shell-command (concat "touch " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
