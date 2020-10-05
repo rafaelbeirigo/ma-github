@@ -48,6 +48,11 @@
     (shell-command (concat "git -C " repo-dir " push -u origin master"))))
 
 (defun ma-github-create-repo ()
+(defun ma-github-local-repo-push (repo-dir)
+  "Do an upstream push on the local repository."
+  (shell-command
+   (concat "git -C " repo-dir " push -u origin master")))
+
   "Create a new repository both locally and in github.com"
   (interactive)
   (let ((repo-name (ma-github-create-github-repo)))
