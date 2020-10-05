@@ -22,15 +22,19 @@
     ;; Create a list to return with repository's name and dir
     (list repo-name (ma-github-get-repo-dir repo-name))))
 
+(defun ma-github-local-repo-add-remote (repo-name repo-dir)
+  "Add a `remote' for the local repository."
+  (shell-command
+   (concat "git -C " repo-dir " remote add origin "
+           "git@github.com:"
+           (getenv "GITHUB_USER") "/"
+           repo-name ".git")))
+
 (defun ma-github-create-local-repo (repo-name repo-dir)
   "Create a new repository locally"
   (interactive (ma-github-get-repo-name-and-dir))
   (make-directory repo-dir)
-  (shell-command (concat "git -C " repo-dir " init ."))
-  (shell-command (concat "git -C " repo-dir " remote add origin "
-                         "git@github.com:"
-                         (getenv "GITHUB_USER") "/"
-                         repo-name ".git")))
+  (shell-command (concat "git -C " repo-dir " init .")))
 
 (defun ma-github-kickstart-local-repo (repo-dir commit)
   "Do a kickstart on the local repository"
