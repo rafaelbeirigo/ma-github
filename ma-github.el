@@ -36,7 +36,7 @@
   (make-directory repo-dir)
   (shell-command (concat "git -C " repo-dir " init .")))
 
-(defun ma-github-kickstart-local-repo (repo-dir commit)
+(defun ma-github-local-repo-kickstart (repo-dir commit)
   "Do a kickstart on the local repository"
   (interactive (list (read-directory-name "Repository dir: ")
                      (yes-or-no-p "Push?")))
