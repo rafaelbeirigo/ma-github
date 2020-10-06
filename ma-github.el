@@ -75,5 +75,5 @@
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
   (ma-github-create-local-repo name dir)
   (ma-github-local-add-remote name dir)
-  (when do-push (ma-github-local-push-upstream dir))
+  (when do-push (ma-github-local-push dir))
   (when kickstart (ma-github-local-kickstart dir)))
