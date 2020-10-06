@@ -54,7 +54,7 @@
   (make-directory dir)
   (shell-command (concat "git -C " dir " init .")))
 
-(defun ma-github-local-kickstart (dir)
+(defun ma-github-kickstart (dir)
   "Add a blank file inside directory DIR and commit it."
   (interactive "DRepository dir: ")
   (message dir)
@@ -62,7 +62,7 @@
   (shell-command (concat "git -C " dir " add " dir "/README"))
   (shell-command (concat "git -C " dir " commit -m 'Initial commit'")))
 
-(defun ma-github-local-push (dir)
+(defun ma-github-push (dir)
   "Run a “Git-push” for the repository in directory DIR."
   (shell-command
    (concat "git -C " dir " push -u origin master")))
@@ -77,5 +77,5 @@ and run a “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
   (ma-github-create-local name dir)
   (ma-github-remote-add name dir)
-  (when git-push (ma-github-local-push dir))
-  (when kickstart (ma-github-local-kickstart dir)))
+  (when git-push (ma-github-push dir))
+  (when kickstart (ma-github-kickstart dir)))
