@@ -42,7 +42,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
     (list name (ma-github-local-get-path name))))
 
 (defun ma-github-local-add-remote (name dir)
-  "Add a “Git remote” for the local repository."
+  "Add a “Git remote” for repository named NAME inside directory DIR."
   (shell-command
    (concat "git -C " dir " remote add origin "
            "git@github.com:"
