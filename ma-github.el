@@ -6,6 +6,11 @@
   :type 'string
   :group 'ma-github)
 
+(defcustom ma-github-env-token "GITHUB_TOKEN"
+  "Environment variable containing the access token."
+  :type 'string
+  :group 'ma-github)
+
 (defun ma-github-create-github-repo ()
   "Create a new repository in github.com"
   (interactive)
@@ -14,7 +19,7 @@
     (shell-command 
      (concat
       "curl "
-      (concat "-H \"Authorization: token " (getenv "GITHUB_TOKEN") "\" ")
+      (concat "-H \"Authorization: token " (getenv ma-github-env-token) "\" ")
       ma-github-repo-url " "
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
