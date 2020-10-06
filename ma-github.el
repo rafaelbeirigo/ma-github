@@ -30,7 +30,7 @@
     repo-name))
 
 (defun ma-github-get-repo-dir (repo-name)
-  "Asks for the repository local dir."
+  "Asks for the dir of the local repository."
   (expand-file-name
    (read-directory-name "Repository dir " repo-name)))
 
