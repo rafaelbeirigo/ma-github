@@ -16,7 +16,7 @@
   :type 'string
   :group 'ma-github)
 
-(defun ma-github-create-github-repo ()
+(defun ma-github-create-github ()
   "Create a repository in Github."
   (interactive)
   (let ((name (read-string "Repository name "))
@@ -48,7 +48,7 @@
            (getenv ma-github-env-user) "/"
            name ".git")))
 
-(defun ma-github-create-local-repo (name dir)
+(defun ma-github-create-local (name dir)
   "Create a new local repository named NAME inside directory DIR."
   (interactive (ma-github-get-name-and-dir))
   (make-directory dir)
@@ -67,7 +67,7 @@
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create-repo (name dir kickstart git-push)
+(defun ma-github-create (name dir kickstart git-push)
   "Create repository named NAME inside DIR, and also in Github.
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 and run a “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
@@ -75,7 +75,7 @@ and run a “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
    (nconc (ma-github-get-name-and-dir)
           (list (yes-or-no-p "Push?")
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
-  (ma-github-create-local-repo name dir)
+  (ma-github-create-local name dir)
   (ma-github-local-add-remote name dir)
   (when git-push (ma-github-local-push dir))
   (when kickstart (ma-github-local-kickstart dir)))
