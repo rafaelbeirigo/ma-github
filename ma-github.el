@@ -73,8 +73,8 @@ If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR."
   (interactive
    (nconc (ma-github-get-repo-info)
-          (list (yes-or-no-p "Push?")
-                (yes-or-no-p "Kickstart (commit blank file)?"))))
+          (list (yes-or-no-p "Kickstart (commit blank file)?")
+                (yes-or-no-p "Push?"))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (when git-push (ma-github-local-push dir))
