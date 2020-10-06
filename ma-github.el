@@ -49,7 +49,7 @@
            name ".git")))
 
 (defun ma-github-create-local-repo (name dir)
-  "Create a new repository locally"
+  "Create a new local repository named NAME inside directory DIR."
   (interactive (ma-github-get-name-and-dir))
   (make-directory dir)
   (shell-command (concat "git -C " dir " init .")))
