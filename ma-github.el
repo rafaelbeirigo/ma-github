@@ -74,7 +74,7 @@ then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR."
   (interactive
    (nconc (ma-github-get-repo-info)
           (list (yes-or-no-p "Push?")
-                (yes-or-no-p "Kickstart it (README and first commit)?"))))
+                (yes-or-no-p "Kickstart (commit blank file)?"))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (when git-push (ma-github-local-push dir))
