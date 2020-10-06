@@ -40,7 +40,7 @@
     ;; Create a list to return with repository's name and dir
     (list name (ma-github-get-local-path name))))
 
-(defun ma-github-local-add-remote (name dir)
+(defun ma-github-add-remote (name dir)
   "Add a Git “remote” for the local repository."
   (shell-command
    (concat "git -C " dir " remote add origin "
@@ -76,6 +76,6 @@ and run a “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
           (list (yes-or-no-p "Push?")
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
   (ma-github-create-local name dir)
-  (ma-github-local-add-remote name dir)
+  (ma-github-add-remote name dir)
   (when git-push (ma-github-local-push dir))
   (when kickstart (ma-github-local-kickstart dir)))
