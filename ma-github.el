@@ -11,6 +11,11 @@
   :type 'string
   :group 'ma-github)
 
+(defcustom ma-github-env-user "GITHUB_USER"
+  "Environment variable containing the username."
+  :type 'string
+  :group 'ma-github)
+
 (defun ma-github-create-github-repo ()
   "Create a new repository in github.com"
   (interactive)
@@ -39,7 +44,7 @@
     (shell-command (concat "git -C " repo-dir " init ."))
     (shell-command (concat "git -C " repo-dir " remote add origin "
                            "git@github.com:"
-                           (getenv "GITHUB_USER") "/"
+                           (getenv ma-github-env-user) "/"
                            repo-name ".git"))
     repo-dir))
 
