@@ -35,7 +35,7 @@
    (read-directory-name "Repository dir " name)))
 
 (defun ma-github-get-name-and-dir ()
-  "Asks for the repository name and local dir."
+  "Ask for repository’s name and local path."
   (let ((name (read-string "Repository name: ")))
     ;; Create a list to return with repository's name and dir
     (list name (ma-github-get-local-path name))))
