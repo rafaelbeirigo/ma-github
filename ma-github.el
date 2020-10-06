@@ -45,7 +45,7 @@
   (shell-command
    (concat "git -C " repo-dir " remote add origin "
            "git@github.com:"
-           (getenv "GITHUB_USER") "/"
+           (getenv ma-github-env-user) "/"
            repo-name ".git")))
 
 (defun ma-github-create-local-repo (repo-name repo-dir)
