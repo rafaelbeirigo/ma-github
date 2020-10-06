@@ -29,7 +29,7 @@
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
 
-(defun ma-github-get-repo-dir (repo-name)
+(defun ma-github-get-local-path (repo-name)
   "Ask for repository’s path, using REPO-NAME as default dir."
   (expand-file-name
    (read-directory-name "Repository dir " repo-name)))
@@ -38,7 +38,7 @@
   "Asks for the repository name and local dir."
   (let ((repo-name (read-string "Repository name: ")))
     ;; Create a list to return with repository's name and dir
-    (list repo-name (ma-github-get-repo-dir repo-name))))
+    (list repo-name (ma-github-get-local-path repo-name))))
 
 (defun ma-github-local-repo-add-remote (repo-name repo-dir)
   "Add a `remote' for the local repository."
