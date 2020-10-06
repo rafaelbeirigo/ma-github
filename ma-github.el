@@ -41,7 +41,7 @@
     (list name (ma-github-get-local-path name))))
 
 (defun ma-github-local-add-remote (name dir)
-  "Add a `remote' for the local repository."
+  "Add a Git “remote” for the local repository."
   (shell-command
    (concat "git -C " dir " remote add origin "
            "git@github.com:"
