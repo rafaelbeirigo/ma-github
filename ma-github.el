@@ -57,7 +57,6 @@
 (defun ma-github-local-kickstart (dir)
   "Create a blank file inside DIR, “Git-add” it, then run “Git-commit”."
   (interactive "DRepository dir: ")
-  (message dir)
   (shell-command (concat "touch " dir "/README"))
   (shell-command (concat "git -C " dir " add " dir "/README"))
   (shell-command (concat "git -C " dir " commit -m 'Initial commit'")))
