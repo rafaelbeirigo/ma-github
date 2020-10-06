@@ -67,7 +67,7 @@
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create-repo (name dir kickstart do-push)
+(defun ma-github-create-repo (name dir kickstart git-push)
   "Create repository named NAME locally inside DIR, and also in Github."
   (interactive
    (nconc (ma-github-get-name-and-dir)
@@ -75,5 +75,5 @@
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
   (ma-github-create-local-repo name dir)
   (ma-github-local-add-remote name dir)
-  (when do-push (ma-github-local-push dir))
+  (when git-push (ma-github-local-push dir))
   (when kickstart (ma-github-local-kickstart dir)))
