@@ -6,9 +6,9 @@ Use Emacs to create Git repositories in github.com.
 
 * Create a personal access token from Github at https://github.com/settings/tokens/new
 
-* Set the environment variable GITHUB_TOKEN with your new token
+* Set the environment variable MA_GITHUB_TOKEN with your new token
 
-* Set the environment variable GITHUB_USER with your Github user
+* Set the environment variable MA_GITHUB_USER with your Github user
 
 Then run `M-x ma-github-create-repo` in Emacs, which will:
 

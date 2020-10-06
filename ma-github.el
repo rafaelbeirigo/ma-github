@@ -6,12 +6,12 @@
   :type 'string
   :group 'ma-github)
 
-(defcustom ma-github-env-token "GITHUB_TOKEN"
+(defcustom ma-github-env-token "MA_GITHUB_TOKEN"
   "Environment variable containing the access token."
   :type 'string
   :group 'ma-github)
 
-(defcustom ma-github-env-user "GITHUB_USER"
+(defcustom ma-github-env-user "MA_GITHUB_USER"
   "Environment variable containing the username."
   :type 'string
   :group 'ma-github)
