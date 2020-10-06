@@ -30,7 +30,7 @@
     repo-name))
 
 (defun ma-github-get-local-path (repo-name)
-  "Ask for repository’s path, using REPO-NAME as default dir."
+  "Ask for local repository’s path, with REPO-NAME as default dir."
   (expand-file-name
    (read-directory-name "Repository dir " repo-name)))
 
