@@ -16,10 +16,15 @@
   :type 'string
   :group 'ma-github)
 
+(defun ma-github-repo-get-name ()
+  "Ask for repository’s name."
+  (read-string "Repository name: "))
+
 (defun ma-github-github-create (name token &optional private)
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
-  (interactive)
+  (interactive
+   (ma-github-repo-get-name))
   (let ((name (read-string "Repository name: "))
         (is-private (if (yes-or-no-p "Public?") "false" "true")))
     (shell-command 
