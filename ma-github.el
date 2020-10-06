@@ -67,7 +67,7 @@
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create-repo (name dir do-push do-kickstart)
+(defun ma-github-create-repo (name dir do-kickstart do-push)
   "Create a new repository both locally and in github.com"
   (interactive
    (nconc (ma-github-get-name-and-dir)
