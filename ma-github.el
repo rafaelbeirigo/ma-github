@@ -63,7 +63,7 @@
   (shell-command (concat "git -C " dir " commit -m 'Initial commit'")))
 
 (defun ma-github-local-push (dir)
-  "Do an upstream push on the local repository."
+  "Run a “Git-push” for the repository in directory DIR."
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
