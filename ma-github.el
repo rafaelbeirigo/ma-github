@@ -70,7 +70,7 @@
 (defun ma-github-create (name dir kickstart git-push)
   "Create a repository named NAME inside directory DIR and on Github.
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
-then run “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
+then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR."
   (interactive
    (nconc (ma-github-get-repo-info)
           (list (yes-or-no-p "Push?")
