@@ -16,8 +16,9 @@
   :type 'string
   :group 'ma-github)
 
-(defun ma-github-github-create ()
-  "Create a repository on Github."
+(defun ma-github-github-create (name token &optional private)
+  "Create a repository named NAME on Github using access token TOKEN.
+The repository will be created “public” unless PRIVATE is non-nil."
   (interactive)
   (let ((name (read-string "Repository name: "))
         (is-private (if (yes-or-no-p "Public?") "false" "true")))
