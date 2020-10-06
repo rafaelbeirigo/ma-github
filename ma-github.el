@@ -1,7 +1,7 @@
 (defgroup ma-github nil
   "Interact with Github.")
 
-(defcustom ma-github-repo-url "https://api.github.com/user/repos"
+(defcustom ma-github-url "https://api.github.com/user/repos"
   "URL address used to create a new repository."
   :type 'string
   :group 'ma-github)
@@ -19,61 +19,61 @@
 (defun ma-github-create-github-repo ()
   "Create a repository in Github."
   (interactive)
-  (let ((repo-name (read-string "Repository name "))
+  (let ((name (read-string "Repository name "))
         (is-private (if (yes-or-no-p "Public") "false" "true")))
     (shell-command 
      (concat
       "curl "
       (concat "-H \"Authorization: token " (getenv ma-github-env-token) "\" ")
-      ma-github-repo-url " "
-      (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
-    repo-name))
+      ma-github-url " "
+      (concat "-d '{\"name\":\"" name "\", \"private\": " is-private "}'")))
+    name))
 
-(defun ma-github-get-local-path (repo-name)
-  "Ask for local repository’s path, with REPO-NAME as default dir."
+(defun ma-github-get-local-path (name)
+  "Ask for local repository’s path, with NAME as default dir."
   (expand-file-name
-   (read-directory-name "Repository dir " repo-name)))
+   (read-directory-name "Repository dir " name)))
 
-(defun ma-github-get-repo-name-and-dir ()
+(defun ma-github-get-name-and-dir ()
   "Asks for the repository name and local dir."
-  (let ((repo-name (read-string "Repository name: ")))
+  (let ((name (read-string "Repository name: ")))
     ;; Create a list to return with repository's name and dir
-    (list repo-name (ma-github-get-local-path repo-name))))
+    (list name (ma-github-get-local-path name))))
 
-(defun ma-github-local-repo-add-remote (repo-name repo-dir)
+(defun ma-github-local-add-remote (name dir)
   "Add a `remote' for the local repository."
   (shell-command
-   (concat "git -C " repo-dir " remote add origin "
+   (concat "git -C " dir " remote add origin "
            "git@github.com:"
            (getenv ma-github-env-user) "/"
-           repo-name ".git")))
+           name ".git")))
 
-(defun ma-github-create-local-repo (repo-name repo-dir)
+(defun ma-github-create-local-repo (name dir)
   "Create a new repository locally"
-  (interactive (ma-github-get-repo-name-and-dir))
-  (make-directory repo-dir)
-  (shell-command (concat "git -C " repo-dir " init .")))
+  (interactive (ma-github-get-name-and-dir))
+  (make-directory dir)
+  (shell-command (concat "git -C " dir " init .")))
 
-(defun ma-github-local-repo-kickstart (repo-dir)
+(defun ma-github-local-kickstart (dir)
   "Add a README file and do the initial commit on the local repository."
   (interactive "DRepository dir: ")
-  (message repo-dir)
-  (shell-command (concat "touch " repo-dir "/README"))
-  (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
-  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'")))
+  (message dir)
+  (shell-command (concat "touch " dir "/README"))
+  (shell-command (concat "git -C " dir " add " dir "/README"))
+  (shell-command (concat "git -C " dir " commit -m 'Initial commit'")))
 
-(defun ma-github-local-repo-push (repo-dir)
+(defun ma-github-local-push (dir)
   "Do an upstream push on the local repository."
   (shell-command
-   (concat "git -C " repo-dir " push -u origin master")))
+   (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create-repo (repo-name repo-dir do-push do-kickstart)
+(defun ma-github-create-repo (name dir do-push do-kickstart)
   "Create a new repository both locally and in github.com"
   (interactive
-   (nconc (ma-github-get-repo-name-and-dir)
+   (nconc (ma-github-get-name-and-dir)
           (list (yes-or-no-p "Push?")
                 (yes-or-no-p "Kickstart it (README and first commit)?"))))
-  (ma-github-create-local-repo repo-name repo-dir)
-  (ma-github-local-repo-add-remote repo-name repo-dir)
-  (when do-push (ma-github-local-repo-push-upstream repo-dir))
-  (when do-kickstart (ma-github-local-repo-kickstart repo-dir)))
+  (ma-github-create-local-repo name dir)
+  (ma-github-local-add-remote name dir)
+  (when do-push (ma-github-local-push-upstream dir))
+  (when do-kickstart (ma-github-local-kickstart dir)))
