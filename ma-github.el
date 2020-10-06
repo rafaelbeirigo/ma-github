@@ -17,7 +17,7 @@
   :group 'ma-github)
 
 (defun ma-github-create-github-repo ()
-  "Create a new repository in github.com"
+  "Create a repository in URL ‘https://github.com’."
   (interactive)
   (let ((repo-name (read-string "Repository name "))
         (is-private (if (yes-or-no-p "Public") "false" "true")))
