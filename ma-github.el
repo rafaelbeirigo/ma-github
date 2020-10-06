@@ -1,3 +1,11 @@
+(defgroup ma-github nil
+  "Interact with Github.")
+
+(defcustom ma-github-repo-url "https://api.github.com/user/repos"
+  "URL address used to create a new repository."
+  :type 'string
+  :group 'ma-github)
+
 (defun ma-github-create-github-repo ()
   "Create a new repository in github.com"
   (interactive)
@@ -7,7 +15,7 @@
      (concat
       "curl "
       (concat "-H \"Authorization: token " (getenv "GITHUB_TOKEN") "\" ")
-      "https://api.github.com/user/repos "
+      ma-github-repo-url " "
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
 
