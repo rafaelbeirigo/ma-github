@@ -16,11 +16,11 @@
   :type 'string
   :group 'ma-github)
 
-(defun ma-github-repo-get-name ()
+(defun ma-github-repo-ask-name ()
   "Ask for repository’s name."
   (read-string "Repository name: "))
 
-(defun ma-github-github-get-token ()
+(defun ma-github-github-ask-token ()
   "Ask for the Github access token."
   (let ((input (read-string
                 (concat "Github access token ("
@@ -33,8 +33,8 @@
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive
-   (ma-github-repo-get-name)
-   (ma-github-github-get-token))
+   (ma-github-repo-ask-name)
+   (ma-github-github-ask-token))
   (let ((name (read-string "Repository name: "))
         (is-private (if (yes-or-no-p "Public?") "false" "true")))
     (shell-command 
@@ -45,16 +45,16 @@ The repository will be created “public” unless PRIVATE is non-nil."
       (concat "-d '{\"name\":\"" name "\", \"private\": " is-private "}'")))
     name))
 
-(defun ma-github-local-get-path (name)
+(defun ma-github-local-ask-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
   (expand-file-name
    (read-directory-name "Repository dir: " name)))
 
-(defun ma-github-get-repo-info ()
+(defun ma-github-ask-repo-info ()
   "Ask for repository’s name and local path."
   (let ((name (read-string "Repository name: ")))
     ;; Create a list to return with repository's name and dir
-    (list name (ma-github-local-get-path name))))
+    (list name (ma-github-local-ask-path name))))
 
 (defun ma-github-local-add-remote (name dir)
   "Add a “Git remote” for repository named NAME inside directory DIR."
@@ -66,7 +66,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
 
 (defun ma-github-local-create (name dir)
   "Create a new local repository named NAME inside directory DIR."
-  (interactive (ma-github-get-repo-info))
+  (interactive (ma-github-ask-repo-info))
   (make-directory dir)
   (shell-command (concat "git -C " dir " init .")))
 
@@ -87,7 +87,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR."
   (interactive
-   (nconc (ma-github-get-repo-info)
+   (nconc (ma-github-ask-repo-info)
           (list (yes-or-no-p "Initial commit?")
                 (yes-or-no-p "Push to Github?"))))
   (ma-github-local-create name dir)
