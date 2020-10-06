@@ -20,11 +20,21 @@
   "Ask for repository’s name."
   (read-string "Repository name: "))
 
+(defun ma-github-github-get-token ()
+  "Ask for the Github access token."
+  (let ((input (read-string
+                (concat "Github access token ("
+                        ma-github-env-token "): "))))
+    (if (string= "" input)
+        (getenv ma-github-env-token)
+      input)))
+
 (defun ma-github-github-create (name token &optional private)
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive
-   (ma-github-repo-get-name))
+   (ma-github-repo-get-name)
+   (ma-github-github-get-token))
   (let ((name (read-string "Repository name: "))
         (is-private (if (yes-or-no-p "Public?") "false" "true")))
     (shell-command 
