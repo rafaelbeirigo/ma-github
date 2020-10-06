@@ -55,7 +55,7 @@
   (shell-command (concat "git -C " dir " init .")))
 
 (defun ma-github-local-kickstart (dir)
-  "Add a README file and do the initial commit on the local repository."
+  "Add a blank file inside directory DIR and commit it."
   (interactive "DRepository dir: ")
   (message dir)
   (shell-command (concat "touch " dir "/README"))
