@@ -46,16 +46,19 @@ more intuitive, as the option it relates to is also called “private.”"
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
                      (ma-github-github-ask-token)
-                     (ma-github-github-ask-if-public)))
-  (let ((name (read-string "Repository name: "))
-        (is-private (if (yes-or-no-p "Public?") "false" "true")))
-    (shell-command 
-     (concat
-      "curl "
-      (concat "-H \"Authorization: token " (getenv ma-github-env-token) "\" ")
-      ma-github-url " "
-      (concat "-d '{\"name\":\"" name "\", \"private\": " is-private "}'")))
-    name))
+                     (ma-github-github-ask-if-private)))
+  (message (concat "name: " name " "
+                   "token: " token " "
+                   "private: " private " "))
+  (unless private
+    (setq private "false"))
+  (shell-command 
+   (concat
+    "curl "
+    (concat "-H \"Authorization: token " token "\" ")
+    ma-github-url " "
+    (concat "-d '{\"name\":\"" name "\", "
+            "\"private\": " private "}'"))))
 
 (defun ma-github-local-ask-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
