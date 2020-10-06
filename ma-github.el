@@ -29,12 +29,16 @@
         (getenv ma-github-env-token)
       input)))
 
+(defun ma-github-github-ask-if-public ()
+  "Return t if user says that the repository should be public."
+  (yes-or-no-p "Public?"))
+
 (defun ma-github-github-create (name token &optional private)
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
-  (interactive
-   (ma-github-repo-ask-name)
-   (ma-github-github-ask-token))
+  (interactive (list (ma-github-repo-ask-name)
+                     (ma-github-github-ask-token)
+                     (ma-github-github-ask-if-public)))
   (let ((name (read-string "Repository name: "))
         (is-private (if (yes-or-no-p "Public?") "false" "true")))
     (shell-command 
