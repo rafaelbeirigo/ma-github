@@ -19,8 +19,8 @@
 (defun ma-github-github-create ()
   "Create a repository in Github."
   (interactive)
-  (let ((name (read-string "Repository name "))
-        (is-private (if (yes-or-no-p "Public") "false" "true")))
+  (let ((name (read-string "Repository name: "))
+        (is-private (if (yes-or-no-p "Public?") "false" "true")))
     (shell-command 
      (concat
       "curl "
@@ -32,7 +32,7 @@
 (defun ma-github-local-get-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
   (expand-file-name
-   (read-directory-name "Repository dir " name)))
+   (read-directory-name "Repository dir: " name)))
 
 (defun ma-github-get-repo-info ()
   "Ask for repository’s name and local path."
