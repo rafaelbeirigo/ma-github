@@ -68,7 +68,7 @@
    (concat "git -C " dir " push -u origin master")))
 
 (defun ma-github-create (name dir kickstart git-push)
-  "Create repository named NAME inside DIR, and also in Github.
+  "Create a repository named NAME inside directory DIR and on Github.
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 and run a “Git-commit”. If GIT-PUSH is t, run a “Git-push” inside DIR."
   (interactive
