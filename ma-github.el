@@ -29,38 +29,51 @@
       (concat "-d '{\"name\":\"" repo-name "\", \"private\": " is-private "}'")))
     repo-name))
 
-(defun ma-github-create-local-repo-dir (repo-name)
-  "Create a new folder for the repository"
-  (interactive)
-  (let ((newdir (read-directory-name "Path for the new repository " repo-name)))
-    (if (not (file-directory-p newdir))
-        (make-directory newdir))
-    newdir))
+(defun ma-github-get-repo-dir (repo-name)
+  "Asks for the repository local dir."
+  (expand-file-name
+   (read-directory-name "Repository dir " repo-name)))
 
-(defun ma-github-create-local-repo (repo-name)
+(defun ma-github-get-repo-name-and-dir ()
+  "Asks for the repository name and local dir."
+  (let ((repo-name (read-string "Repository name: ")))
+    ;; Create a list to return with repository's name and dir
+    (list repo-name (ma-github-get-repo-dir repo-name))))
+
+(defun ma-github-local-repo-add-remote (repo-name repo-dir)
+  "Add a `remote' for the local repository."
+  (shell-command
+   (concat "git -C " repo-dir " remote add origin "
+           "git@github.com:"
+           (getenv "GITHUB_USER") "/"
+           repo-name ".git")))
+
+(defun ma-github-create-local-repo (repo-name repo-dir)
   "Create a new repository locally"
-  (interactive)
-  (let ((repo-dir (ma-github-create-local-repo-dir repo-name)))
-    (shell-command (concat "git -C " repo-dir " init ."))
-    (shell-command (concat "git -C " repo-dir " remote add origin "
-                           "git@github.com:"
-                           (getenv ma-github-env-user) "/"
-                           repo-name ".git"))
-    repo-dir))
+  (interactive (ma-github-get-repo-name-and-dir))
+  (make-directory repo-dir)
+  (shell-command (concat "git -C " repo-dir " init .")))
 
-(defun ma-github-kickstart-local-repo (repo-dir)
-  "Do a kickstart on the local repository"
-  (interactive)
+(defun ma-github-local-repo-kickstart (repo-dir)
+  "Add a README file and do the initial commit on the local repository."
+  (interactive "DRepository dir: ")
   (message repo-dir)
   (shell-command (concat "touch " repo-dir "/README"))
   (shell-command (concat "git -C " repo-dir " add " repo-dir "/README"))
-  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'"))
-  (shell-command (concat "git -C " repo-dir " push -u origin master")))
+  (shell-command (concat "git -C " repo-dir " commit -m 'Initial commit'")))
 
-(defun ma-github-create-repo ()
+(defun ma-github-local-repo-push (repo-dir)
+  "Do an upstream push on the local repository."
+  (shell-command
+   (concat "git -C " repo-dir " push -u origin master")))
+
+(defun ma-github-create-repo (repo-name repo-dir do-push do-kickstart)
   "Create a new repository both locally and in github.com"
-  (interactive)
-  (let ((repo-name (ma-github-create-github-repo)))
-    (let ((repo-dir (ma-github-create-local-repo repo-name)))
-      (message (concat "esse: " repo-dir))
-      (ma-github-kickstart-local-repo repo-dir))))
+  (interactive
+   (nconc (ma-github-get-repo-name-and-dir)
+          (list (yes-or-no-p "Push?")
+                (yes-or-no-p "Kickstart it (README and first commit)?"))))
+  (ma-github-create-local-repo repo-name repo-dir)
+  (ma-github-local-repo-add-remote repo-name repo-dir)
+  (when do-push (ma-github-local-repo-push-upstream repo-dir))
+  (when do-kickstart (ma-github-local-repo-kickstart repo-dir)))
