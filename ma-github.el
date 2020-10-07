@@ -37,7 +37,7 @@ Ask the user if it should be “public”, which is arguably more
 intuitive than questioning if it should be “private.”
 The function has “private” in the name because this make its use
 more intuitive, as the option it relates to is also called “private.”"
-  (if (yes-or-no-p "Public?")
+  (if (yes-or-no-p "Public? ")
       "false"
     "true"))
 
@@ -104,8 +104,8 @@ then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR.
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive
    (nconc (ma-github-ask-repo-info)
-          (list (yes-or-no-p "Initial commit?")
-                (yes-or-no-p "Push to Github?"))))
+          (list (yes-or-no-p "Initial commit? ")
+                (yes-or-no-p "Push to Github? "))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (ma-github-github-create (name token private))
