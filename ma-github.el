@@ -47,9 +47,6 @@ The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
                      (ma-github-github-ask-token)
                      (ma-github-github-ask-if-private)))
-  (message (concat "name: " name " "
-                   "token: " token " "
-                   "private: " private " "))
   (unless private
     (setq private "false"))
   (let ((progress-reporter
