@@ -1,4 +1,4 @@
-Use Emacs to create Git repositories in github.com.
+Create repositories on Github from inside Emacs.
 
 # Usage:
 
