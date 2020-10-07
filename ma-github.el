@@ -41,7 +41,7 @@ more intuitive, as the option it relates to is also called “private.”"
       "false"
     "true"))
 
-(defun ma-github-github-create (name token &optional private)
+(defun ma-github-github-create (name token private)
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
