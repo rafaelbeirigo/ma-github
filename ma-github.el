@@ -101,10 +101,10 @@ The repository will be created “public” unless PRIVATE is non-nil."
    (concat "git -C " dir " push -u origin master")))
 
 (defun ma-github-create (name dir kickstart git-push &optional private)
-  "Create a repository named NAME inside directory DIR and on Github.
+  "Create repository NAME inside directory DIR and also on Github.
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR.
-The repository will be created “public” unless PRIVATE is non-nil."
+Unless PRIVATE is non-nil, the repository will be created “public”."
   (interactive
    (nconc (ma-github-ask-repo-info)
           (list (yes-or-no-p "Initial commit? ")
