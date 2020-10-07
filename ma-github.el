@@ -100,18 +100,20 @@ The repository will be created “public” unless PRIVATE is non-nil."
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create (name dir &optional token kickstart git-push private)
+(defun ma-github-create (name dir token kickstart git-push private)
   "Create repository named NAME on Github, and inside directory DIR.
 
-If TOKEN is non-nil, use it as access token, otherwise get it from
-variable ‘ma-github-env-token’.  If KICKSTART is non-nil, create a
-blank file inside DIR, “Git-add” it, then run “Git-commit”.  If
-GIT-PUSH is non-nil, run “Git-push” inside DIR.  Unless PRIVATE is
-non-nil, the repository will be created “public”."
+Use the access token TOKEN to connect to the Github API.  If KICKSTART
+is non-nil, create a blank file inside directory DIR, “Git-add” it,
+then run “Git-commit”.  If GIT-PUSH is non-nil, run “Git-push” inside
+DIR.  If PRIVATE is non-nil, the repository will be created “public,”
+otherwise it will be created “private”."
   (interactive
    (nconc (ma-github-ask-repo-info)
           (list (yes-or-no-p "Initial commit? ")
                 (yes-or-no-p "Push to Github? "))))
+  (unless token
+    (setq token (getenv ma-github-env-token)))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (ma-github-github-create (name token private))
