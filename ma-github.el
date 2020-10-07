@@ -117,6 +117,6 @@ otherwise it will be created “private”."
            (ma-github-github-ask-if-private))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
-  (ma-github-github-create (name token private))
   (when git-push (ma-github-local-push dir))
   (when kickstart (ma-github-local-kickstart dir)))
+  (ma-github-github-create name token private)
