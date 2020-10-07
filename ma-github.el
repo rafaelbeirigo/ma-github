@@ -46,9 +46,7 @@ more intuitive, as the option it relates to is also called “private.”"
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
                      (ma-github-github-ask-token)
-                     (ma-github-github-ask-if-private)))
-  (unless private
-    (setq private "false"))
+                     (not (yes-or-no-p "Public? "))))
   (let ((progress-reporter
          (make-progress-reporter "Creating repository on Github...")))
     (shell-command
