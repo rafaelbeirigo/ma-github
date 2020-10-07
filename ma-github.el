@@ -52,13 +52,16 @@ The repository will be created “public” unless PRIVATE is non-nil."
                    "private: " private " "))
   (unless private
     (setq private "false"))
-  (shell-command 
-   (concat
-    "curl "
-    (concat "-H \"Authorization: token " token "\" ")
-    ma-github-url " "
-    (concat "-d '{\"name\":\"" name "\", "
-            "\"private\": " private "}'"))))
+  (let ((progress-reporter
+         (make-progress-reporter "Creating repository on Github...")))
+    (shell-command
+     (concat
+      "curl "
+      (concat "-H \"Authorization: token " token "\" ")
+      ma-github-url " "
+      (concat "-d '{\"name\":\"" name "\", "
+              "\"private\": " private "}'")))
+    (progress-reporter-done progress-reporter)))
 
 (defun ma-github-local-ask-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
