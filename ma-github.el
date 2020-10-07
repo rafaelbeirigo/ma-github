@@ -110,10 +110,11 @@ DIR.  If PRIVATE is non-nil, the repository will be created “public,”
 otherwise it will be created “private”."
   (interactive
    (nconc (ma-github-ask-repo-info)
-          (list (yes-or-no-p "Initial commit? ")
-                (yes-or-no-p "Push to Github? "))))
-  (unless token
-    (setq token (getenv ma-github-env-token)))
+          (list
+           (getenv ma-github-env-token)
+           (yes-or-no-p "Initial commit? ")
+           (yes-or-no-p "Push to Github? ")
+           (ma-github-github-ask-if-private))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (ma-github-github-create (name token private))
