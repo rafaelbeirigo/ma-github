@@ -100,7 +100,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create (name dir kickstart git-push &optional private)
+(defun ma-github-create (name dir &optional token kickstart git-push private)
   "Create repository NAME inside directory DIR and also on Github.
 If KICKSTART is t, create a blank file inside DIR, “Git-add” it,
 then run “Git-commit”. If GIT-PUSH is t, run “Git-push” inside DIR.
