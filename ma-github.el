@@ -109,7 +109,7 @@ otherwise it will be created “private”."
            (getenv ma-github-env-token)
            (yes-or-no-p "Initial commit? ")
            (yes-or-no-p "Push to Github? ")
-           (ma-github-github-ask-if-private))))
+           (not (yes-or-no-p "Public? ")))))
   (ma-github-local-create name dir)
   (ma-github-local-add-remote name dir)
   (ma-github-github-create name token private)
