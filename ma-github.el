@@ -95,8 +95,21 @@ otherwise it will be created “private”."
            (yes-or-no-p "Initial commit? ")
            (yes-or-no-p "Push to Github? ")
            (not (yes-or-no-p "Public? ")))))
-  (ma-github-local-create name dir)
-  (ma-github-local-add-remote name dir)
-  (ma-github-github-create name token private)
-  (when kickstart (ma-github-local-kickstart dir))
-  (when git-push (ma-github-local-push dir)))
+  (let ((progress-reporter
+         (make-progress-reporter "Creating repository..." 0 5)))
+    (progress-reporter-update progress-reporter 0)
+
+    (ma-github-local-create name dir)
+    (progress-reporter-update progress-reporter 1)
+
+    (ma-github-local-add-remote name dir)
+    (progress-reporter-update progress-reporter 2)
+
+    (ma-github-github-create name token private)
+    (progress-reporter-update progress-reporter 3)
+
+    (when kickstart (ma-github-local-kickstart dir))
+    (progress-reporter-update progress-reporter 4)
+
+    (when git-push (ma-github-local-push dir))
+    (progress-reporter-done progress-reporter)))
