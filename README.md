@@ -10,7 +10,7 @@ Create repositories on Github from inside Emacs.
 
 * Set the environment variable MA_GITHUB_USER with your Github user
 
-Then run `M-x ma-github-create-repo` in Emacs, which will:
+Then run `M-x ma-github-create` in Emacs, which will:
 
 * create the repository in github.com
 
