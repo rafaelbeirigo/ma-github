@@ -23,7 +23,7 @@
 (defun ma-github-github-ask-token ()
   "Ask for the Github access token."
   (let ((input (read-string
-                (concat "Github access token ("
+                (concat "Github access token (default "
                         ma-github-env-token "): "))))
     (if (string= "" input)
         (getenv ma-github-env-token)
