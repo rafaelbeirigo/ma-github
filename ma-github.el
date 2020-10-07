@@ -55,7 +55,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
       (concat "-H \"Authorization: token " token "\" ")
       ma-github-url " "
       (concat "-d '{\"name\":\"" name "\", "
-              "\"private\": " private "}'")))
+              "\"private\": " (if private "true" "false" ) "}'")))
     (progress-reporter-done progress-reporter)))
 
 (defun ma-github-local-ask-path (name)
