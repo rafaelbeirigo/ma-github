@@ -29,18 +29,6 @@
         (getenv ma-github-env-token)
       input)))
 
-(defun ma-github-github-ask-if-private ()
-  "Return a string saying if the repository should be private or not.
-Return “true” if it should be private, or “false” otherwise.
-
-Ask the user if it should be “public”, which is arguably more
-intuitive than questioning if it should be “private.”
-The function has “private” in the name because this make its use
-more intuitive, as the option it relates to is also called “private.”"
-  (if (yes-or-no-p "Public? ")
-      "false"
-    "true"))
-
 (defun ma-github-github-create (name token private)
   "Create a repository named NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
