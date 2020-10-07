@@ -35,16 +35,13 @@ The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
                      (ma-github-github-ask-token)
                      (not (yes-or-no-p "Public? "))))
-  (let ((progress-reporter
-         (make-progress-reporter "Creating repository on Github...")))
-    (shell-command
-     (concat
-      "curl "
-      (concat "-H \"Authorization: token " token "\" ")
-      ma-github-url " "
-      (concat "-d '{\"name\":\"" name "\", "
-              "\"private\": " (if private "true" "false" ) "}'")))
-    (progress-reporter-done progress-reporter)))
+  (shell-command
+   (concat
+    "curl "
+    (concat "-H \"Authorization: token " token "\" ")
+    ma-github-url " "
+    (concat "-d '{\"name\":\"" name "\", "
+            "\"private\": " (if private "true" "false" ) "}'"))))
 
 (defun ma-github-local-ask-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
