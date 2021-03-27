@@ -65,7 +65,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
 (defun ma-github-local-create (name dir)
   "Create a new local repository named NAME inside directory DIR."
   (interactive (ma-github-ask-repo-info))
-  (ignore-errors (make-directory "~/.freeciv"))
+  (ignore-errors (make-directory dir))
   (shell-command (concat "git -C " dir " init .")))
 
 (defun ma-github-local-kickstart (dir)
