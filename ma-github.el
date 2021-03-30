@@ -112,4 +112,5 @@ otherwise it will be created “private”."
     (progress-reporter-update progress-reporter 4)
 
     (when git-push (ma-github-local-push dir))
-    (progress-reporter-done progress-reporter)))
+    (progress-reporter-done progress-reporter))
+  (run-hooks 'ma-github-create-finalize-hook))
