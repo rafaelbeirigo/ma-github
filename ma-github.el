@@ -25,6 +25,9 @@
 (defvar ma-github-create-finalize-hook nil
   "Hook run just before the end of the ‘ma-github-create’.")
 
+(defvar ma-github-create-before-start-hook nil
+  "Hook run just before the start of the ‘ma-github-create’.")
+
 (defun ma-github-repo-ask-name ()
   "Ask for repository’s name."
   (read-string "Repository name: "))
@@ -104,6 +107,7 @@ otherwise it will be created “private”."
            (yes-or-no-p "Initial commit? ")
            (yes-or-no-p "Push to Github? ")
            (not (yes-or-no-p "Public? ")))))
+  (run-hooks 'ma-github-create-before-start-hook)
   (setq ma-github-last-repo-name name)
   (setq ma-github-last-repo-dir dir)
   (let ((progress-reporter
