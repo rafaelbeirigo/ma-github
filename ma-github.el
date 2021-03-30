@@ -95,6 +95,8 @@ otherwise it will be created “private”."
            (yes-or-no-p "Initial commit? ")
            (yes-or-no-p "Push to Github? ")
            (not (yes-or-no-p "Public? ")))))
+  (setq ma-github-last-repo-name name)
+  (setq ma-github-last-repo-dir dir)
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
