@@ -16,6 +16,12 @@
   :type 'string
   :group 'ma-github)
 
+(defvar ma-github-last-repo-name nil
+  "Name of the last repository created.")
+
+(defvar ma-github-last-repo-dir nil
+  "Directory of the last repository created.")
+
 (defun ma-github-repo-ask-name ()
   "Ask for repository’s name."
   (read-string "Repository name: "))
