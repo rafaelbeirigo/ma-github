@@ -22,11 +22,11 @@
 (defvar ma-github-last-repo-dir nil
   "Directory of the last repository created.")
 
-(defvar ma-github-create-finalize-hook nil
-  "Hook run just before the end of the ‘ma-github-create’.")
-
 (defvar ma-github-create-before-start-hook nil
   "Hook run just before the start of the ‘ma-github-create’.")
+
+(defvar ma-github-create-finalize-hook nil
+  "Hook run just before the end of the ‘ma-github-create’.")
 
 (defun ma-github-repo-ask-name ()
   "Ask for repository’s name."
