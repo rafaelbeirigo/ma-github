@@ -42,7 +42,7 @@
       input)))
 
 (defun ma-github-github-create (name token private)
-  "Create a repository named NAME on Github using access token TOKEN.
+  "Create a repository called NAME on Github using access token TOKEN.
 The repository will be created “public” unless PRIVATE is non-nil."
   (interactive (list (ma-github-repo-ask-name)
                      (ma-github-github-ask-token)
@@ -67,7 +67,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
     (list name (ma-github-local-ask-path name))))
 
 (defun ma-github-local-add-remote (name dir)
-  "Add a “Git remote” for repository named NAME inside directory DIR."
+  "Add a “Git remote” for repository called NAME inside directory DIR."
   (shell-command
    (concat "git -C " dir " remote add origin "
            "git@github.com:"
@@ -75,7 +75,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
            name ".git")))
 
 (defun ma-github-local-create (name dir)
-  "Create a new local repository named NAME inside directory DIR."
+  "Create a new local repository called NAME inside directory DIR."
   (interactive (ma-github-ask-repo-info))
   (ignore-errors (make-directory dir t))
   (shell-command (concat "git -C " dir " init .")))
@@ -93,7 +93,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
    (concat "git -C " dir " push -u origin master")))
 
 (defun ma-github-create (name dir token kickstart git-push private)
-  "Create repository named NAME on Github, and inside directory DIR.
+  "Create repository called NAME on Github, and inside directory DIR.
 
 Use the access token TOKEN to connect to the Github API.  If KICKSTART
 is non-nil, create a blank file inside directory DIR, “Git-add” it,
