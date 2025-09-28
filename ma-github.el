@@ -114,6 +114,12 @@ otherwise it will be created “private”."
              ma-github-api-url)))
       (if (string-blank-p api-url)
           (error "API URL cannot be empty")))
+    (let ((username
+           (if (string-blank-p ma-github-username)
+               (read-string "username: ")
+             ma-github-username)))
+      (if (string-blank-p username)
+          (error "username cannot be empty")))
     (shell-command
      (concat
       "curl "

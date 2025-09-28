@@ -124,6 +124,19 @@ Let's create a variable for that too.
   :type 'string
   :group 'ma-github)
 #+end_src
+
+Now let's make sure we get a username.
+
+~<<Make sure we have all we need to create the remote repository>> +≡~
+
+#+begin_src elisp :noweb-ref Make sure we have all we need to create the remote repository
+(let ((username
+       (if (string-blank-p ma-github-username)
+           (read-string "username: ")
+         ma-github-username)))
+  (if (string-blank-p username)
+      (error "username cannot be empty")))
+#+end_src
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
 #+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create
