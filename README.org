@@ -12,6 +12,7 @@ Create repositories on Github from inside Emacs.
   - create a blank README file inside this folder and ~git add~ it
   - do the first commit, with the message 'Initial commit'
   - ~git push -u origin master~ it to the newly created github repo
+- Set ma-github-username
 
 
 * All the Code in Literate Programming
