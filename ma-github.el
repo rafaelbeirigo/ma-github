@@ -1,3 +1,4 @@
+(require 'auth-source)
 (defgroup ma-github nil
   "Interact with Github.")
 

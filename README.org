@@ -70,6 +70,16 @@ curl -H "Authorization: token TOKEN"
   (concat "-d '{\"name\":\"" name "\", "
           "\"private\": " (if private "true" "false" ) "}'")))
 #+end_src
+
+We need an access token.
+It will be obtained from a file set in the variable ~authinfo-file~, that defaults to  =~/.authinfo.gpg=.
+We'll use =auth-source.el= for that.
+
+~<<require's>> +≡~
+
+#+begin_src elisp :noweb-ref require's
+(require 'auth-source)
+#+end_src
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
 #+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create
@@ -243,6 +253,7 @@ Let's now focus on the /local/ repository.
 ~<<Housekeeping: Customization, Variables, and Hooks>> +≡~
 
 #+begin_src elisp :noweb-ref Housekeeping: Customization, Variables, and Hooks
+<<require's>>
 <<Customization Group and Variables>>
 
 <<Variables>>
