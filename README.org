@@ -101,9 +101,18 @@ curl -H "Authorization: token TOKEN"
 (setq ma-github-last-repo-dir dir)
 #+end_src
 
+Let's now focus on the /local/ repository.
+
 ~<<Maybe create, kickstart, and/or push local repository>> +≡~
 
 #+begin_src elisp :noweb-ref Maybe create, kickstart, and/or push local repository
+(when dir
+  <<Create, kickstart, and/or push local repository>>)
+#+end_src
+
+~<<Create, kickstart, and/or push local repository>> +≡~
+
+#+begin_src elisp :noweb-ref Create, kickstart, and/or push local repository
 (ma-github-local-create name dir)
 (progress-reporter-update progress-reporter 2)
 

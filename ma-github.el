@@ -108,15 +108,16 @@ otherwise it will be created “private”."
       (concat "-d '{\"name\":\"" name "\", "
               "\"private\": " (if private "true" "false" ) "}'")))
     (progress-reporter-update progress-reporter 1)
-    (ma-github-local-create name dir)
-    (progress-reporter-update progress-reporter 2)
-    
-    (ma-github-local-add-remote name dir)
-    (progress-reporter-update progress-reporter 3)
-    
-    (when kickstart (ma-github-local-kickstart dir))
-    (progress-reporter-update progress-reporter 4)
-    
-    (when git-push (ma-github-local-push dir))
-    (progress-reporter-done progress-reporter))
+    (when dir
+      (ma-github-local-create name dir)
+      (progress-reporter-update progress-reporter 2)
+      
+      (ma-github-local-add-remote name dir)
+      (progress-reporter-update progress-reporter 3)
+      
+      (when kickstart (ma-github-local-kickstart dir))
+      (progress-reporter-update progress-reporter 4)
+      
+      (when git-push (ma-github-local-push dir))
+      (progress-reporter-done progress-reporter)))
   (run-hooks 'ma-github-create-finalize-hook))
