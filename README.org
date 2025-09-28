@@ -22,11 +22,7 @@ The code looks like this.
 [[file:~/elisp/ma-github/ma-github.el][~/elisp/ma-github/ma-github.el]] ≡
 
 #+begin_src elisp :tangle ma-github.el
-<<Customization Group and Variables>>
-
-<<Variables>>
-
-<<Hooks>>
+<<Housekeeping: Customization, Variables, and Hooks>>
 
 (defun ma-github-repo-ask-name ()
   "Ask for repository’s name."
@@ -174,4 +170,15 @@ otherwise it will be created “private”."
 
 (defvar ma-github-create-finalize-hook nil
   "Hook run at the end of ‘ma-github-create’.")
+#+end_src
+
+** Housekeeping
+~<<Housekeeping: Customization, Variables, and Hooks>> +≡~
+
+#+begin_src elisp :noweb-ref Housekeeping: Customization, Variables, and Hooks
+<<Customization Group and Variables>>
+
+<<Variables>>
+
+<<Hooks>>
 #+end_src
