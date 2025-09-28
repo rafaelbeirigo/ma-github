@@ -30,13 +30,7 @@ is non-nil, create a blank file inside directory DIR, “Git-add” it,
 then run “Git-commit”.  If GIT-PUSH is non-nil, run “Git-push” inside
 DIR.  If PRIVATE is non-nil, the repository will be created “public,”
 otherwise it will be created “private”."
-  (interactive
-   (nconc (ma-github-ask-repo-info)
-          (list
-           (getenv ma-github-env-token)
-           (yes-or-no-p "Initial commit? ")
-           (yes-or-no-p "Push to Github? ")
-           (not (yes-or-no-p "Public? ")))))
+  <<Asks for arguments when run interactively ma-github-create>>
   (run-hooks 'ma-github-create-before-start-hook)
   (setq ma-github-last-repo-name name)
   (setq ma-github-last-repo-dir dir)
@@ -59,6 +53,18 @@ otherwise it will be created “private”."
     (when git-push (ma-github-local-push dir))
     (progress-reporter-done progress-reporter))
   (run-hooks 'ma-github-create-finalize-hook))
+#+end_src
+
+~<<Asks for arguments when run interactively ma-github-create>> +≡~
+
+#+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create
+(interactive
+ (nconc (ma-github-ask-repo-info)
+        (list
+         (getenv ma-github-env-token)
+         (yes-or-no-p "Initial commit? ")
+         (yes-or-no-p "Push to Github? ")
+         (not (yes-or-no-p "Public? ")))))
 #+end_src
 
 ** Main code structure
