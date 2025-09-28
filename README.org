@@ -52,7 +52,7 @@ otherwise it will be created “private”."
 
     (when git-push (ma-github-local-push dir))
     (progress-reporter-done progress-reporter))
-  (run-hooks 'ma-github-create-finalize-hook))
+  <<Run final hooks>>)
 #+end_src
 
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
@@ -71,6 +71,12 @@ otherwise it will be created “private”."
 
 #+begin_src elisp :noweb-ref Run initial hooks
 (run-hooks 'ma-github-create-before-start-hook)
+#+end_src
+
+~<<Run final hooks>> +≡~
+
+#+begin_src elisp :noweb-ref Run final hooks
+(run-hooks 'ma-github-create-finalize-hook)
 #+end_src
 
 ** Main code structure
