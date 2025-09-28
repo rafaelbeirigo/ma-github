@@ -32,8 +32,7 @@ DIR.  If PRIVATE is non-nil, the repository will be created “public,”
 otherwise it will be created “private”."
   <<Asks for arguments when run interactively ma-github-create>>
   <<Run initial hooks>>
-  (setq ma-github-last-repo-name name)
-  (setq ma-github-last-repo-dir dir)
+  <<Update "last repository" variables>>
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
@@ -77,6 +76,13 @@ otherwise it will be created “private”."
 
 #+begin_src elisp :noweb-ref Run final hooks
 (run-hooks 'ma-github-create-finalize-hook)
+#+end_src
+
+~<<Update "last repository" variables>> +≡~
+
+#+begin_src elisp :noweb-ref Update "last repository" variables
+(setq ma-github-last-repo-name name)
+(setq ma-github-last-repo-dir dir)
 #+end_src
 
 ** Main code structure
