@@ -111,6 +111,18 @@ Now let's make sure we get one.
   (if (string-blank-p api-url)
       (error "API URL cannot be empty")))
 #+end_src
+
+Then we need the username.
+Let's create a variable for that too.
+
+~<<Customization Group and Variables>> +≡~
+
+#+begin_src elisp :noweb-ref Customization Group and Variables
+(defcustom ma-github-username ""
+  "Github username."
+  :type 'string
+  :group 'ma-github)
+#+end_src
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
 #+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create

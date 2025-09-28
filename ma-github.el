@@ -3,6 +3,10 @@
   "Github API URL."
   :type 'string
   :group 'ma-github)
+(defcustom ma-github-username ""
+  "Github username."
+  :type 'string
+  :group 'ma-github)
 (defgroup ma-github nil
   "Interact with Github.")
 
