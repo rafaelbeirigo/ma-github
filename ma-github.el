@@ -104,7 +104,12 @@ otherwise it will be created “private”."
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
-    
+    (let ((api-url
+           (if (string-blank-p ma-github-api-url)
+               (read-string "API URL: ")
+             ma-github-api-url)))
+      (if (string-blank-p api-url)
+          (error "API URL cannot be empty")))
     (shell-command
      (concat
       "curl "
