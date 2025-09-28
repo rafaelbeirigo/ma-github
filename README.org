@@ -17,7 +17,7 @@ Create repositories on Github from inside Emacs.
 * All the Code in Literate Programming
 It was made using Babel, from the Org Mode in Emacs.
 
-The code looks like this.
+** Main code structure
 
 [[file:~/elisp/ma-github/ma-github.el][~/elisp/ma-github/ma-github.el]] ≡
 
