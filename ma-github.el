@@ -113,10 +113,8 @@ otherwise it will be created “private”."
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
-
     (ma-github-github-create name token private)
     (progress-reporter-update progress-reporter 1)
-
     (ma-github-local-create name dir)
     (progress-reporter-update progress-reporter 2)
     
