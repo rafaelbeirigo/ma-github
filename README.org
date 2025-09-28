@@ -33,9 +33,7 @@ otherwise it will be created “private”."
   <<Asks for arguments when run interactively ma-github-create>>
   <<Run initial hooks>>
   <<Update "last repository" variables>>
-  (let ((progress-reporter
-         (make-progress-reporter "Creating repository..." 0 5)))
-    (progress-reporter-update progress-reporter 0)
+  <<Prepare the progress report>>
     <<Create remote repository>>
     <<Maybe create, kickstart, and/or push local repository>>
   <<Run final hooks>>)
@@ -93,6 +91,14 @@ otherwise it will be created “private”."
 
 (when git-push (ma-github-local-push dir))
 (progress-reporter-done progress-reporter))
+#+end_src
+
+~<<Prepare the progress report>> +≡~
+
+#+begin_src elisp :noweb-ref Prepare the progress report
+(let ((progress-reporter
+       (make-progress-reporter "Creating repository..." 0 5)))
+  (progress-reporter-update progress-reporter 0)
 #+end_src
 
 ** Main code structure
