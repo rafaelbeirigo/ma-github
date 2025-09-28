@@ -22,23 +22,7 @@ The code looks like this.
 [[file:~/elisp/ma-github/ma-github.el][~/elisp/ma-github/ma-github.el]] ≡
 
 #+begin_src elisp :tangle ~/elisp/ma-github/ma-github.el
-(defgroup ma-github nil
-  "Interact with Github.")
-
-(defcustom ma-github-url "https://api.github.com/user/repos"
-  "URL address used to create a new repository."
-  :type 'string
-  :group 'ma-github)
-
-(defcustom ma-github-env-token "MA_GITHUB_TOKEN"
-  "Environment variable containing the access token."
-  :type 'string
-  :group 'ma-github)
-
-(defcustom ma-github-env-user "MA_GITHUB_USER"
-  "Environment variable containing the username."
-  :type 'string
-  :group 'ma-github)
+<<Customization Group and Variables>>
 
 (defvar ma-github-last-repo-name nil
   "Name of the last repository created.")
@@ -153,4 +137,27 @@ otherwise it will be created “private”."
     (when git-push (ma-github-local-push dir))
     (progress-reporter-done progress-reporter))
   (run-hooks 'ma-github-create-finalize-hook))
+#+end_src
+
+** This allows for the facilities under ~M-x customize-group RET ma-github~.
+~<<Customization Group and Variables>> +≡~
+
+#+begin_src elisp :noweb-ref Customization Group and Variables
+(defgroup ma-github nil
+  "Interact with Github.")
+
+(defcustom ma-github-url "https://api.github.com/user/repos"
+  "URL address used to create a new repository."
+  :type 'string
+  :group 'ma-github)
+
+(defcustom ma-github-env-token "MA_GITHUB_TOKEN"
+  "Environment variable containing the access token."
+  :type 'string
+  :group 'ma-github)
+
+(defcustom ma-github-env-user "MA_GITHUB_USER"
+  "Environment variable containing the username."
+  :type 'string
+  :group 'ma-github)
 #+end_src
