@@ -80,6 +80,12 @@ We'll use =auth-source.el= for that.
 #+begin_src elisp :noweb-ref require's
 (require 'auth-source)
 #+end_src
+
+The lines of =~/.authinfo.gpg= have the following form.
+
+#+begin_example
+machine api.github.com login USERNAME password TOKEN
+#+end_example
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
 #+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create
