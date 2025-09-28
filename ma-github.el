@@ -41,20 +41,6 @@
         (getenv ma-github-env-token)
       input)))
 
-(defun ma-github-github-create (name token private)
-  "Create a repository called NAME on Github using access token TOKEN.
-The repository will be created “public” unless PRIVATE is non-nil."
-  (interactive (list (ma-github-repo-ask-name)
-                     (ma-github-github-ask-token)
-                     (not (yes-or-no-p "Public? "))))
-  (shell-command
-   (concat
-    "curl "
-    (concat "-H \"Authorization: token " token "\" ")
-    ma-github-url " "
-    (concat "-d '{\"name\":\"" name "\", "
-            "\"private\": " (if private "true" "false" ) "}'"))))
-
 (defun ma-github-local-ask-path (name)
   "Ask for local repository’s path, with NAME as the default dir."
   (expand-file-name
@@ -113,7 +99,13 @@ otherwise it will be created “private”."
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
-    (ma-github-github-create name token private)
+    (shell-command
+     (concat
+      "curl "
+      (concat "-H \"Authorization: token " token "\" ")
+      ma-github-url " "
+      (concat "-d '{\"name\":\"" name "\", "
+              "\"private\": " (if private "true" "false" ) "}'")))
     (progress-reporter-update progress-reporter 1)
     (ma-github-local-create name dir)
     (progress-reporter-update progress-reporter 2)
