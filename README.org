@@ -39,9 +39,29 @@ otherwise it will be created “private”."
   <<Run final hooks>>)
 #+end_src
 
+The remote repository is created with an external call to =curl=.
+Some preparation before the command is called will be needed, so we'll leave a placeholder for it.
+
 ~<<Create remote repository>> +≡~
 
 #+begin_src elisp :noweb-ref Create remote repository
+<<Make sure we have all we need to create the remote repository>>
+<<Call curl to create the remote repository>>
+(progress-reporter-update progress-reporter 1)
+#+end_src
+
+The =curl= command (without escaping characters) has this form.
+
+#+begin_src shell
+curl -H "Authorization: token TOKEN"
+    https://api.github.com/user/repos
+    -d '{"name":"NAME",
+         "private":PRIVATE}'
+#+end_src
+
+~<<Call curl to create the remote repository>> +≡~
+
+#+begin_src elisp :noweb-ref Call curl to create the remote repository
 (shell-command
  (concat
   "curl "
@@ -49,7 +69,6 @@ otherwise it will be created “private”."
   ma-github-url " "
   (concat "-d '{\"name\":\"" name "\", "
           "\"private\": " (if private "true" "false" ) "}'")))
-(progress-reporter-update progress-reporter 1)
 #+end_src
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 

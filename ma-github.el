@@ -99,6 +99,7 @@ otherwise it will be created “private”."
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
+    
     (shell-command
      (concat
       "curl "
