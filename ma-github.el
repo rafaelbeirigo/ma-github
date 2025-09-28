@@ -114,13 +114,13 @@ otherwise it will be created “private”."
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
 
-    (ma-github-local-create name dir)
+    (ma-github-github-create name token private)
     (progress-reporter-update progress-reporter 1)
 
-    (ma-github-local-add-remote name dir)
+    (ma-github-local-create name dir)
     (progress-reporter-update progress-reporter 2)
 
-    (ma-github-github-create name token private)
+    (ma-github-local-add-remote name dir)
     (progress-reporter-update progress-reporter 3)
 
     (when kickstart (ma-github-local-kickstart dir))
