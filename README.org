@@ -31,7 +31,7 @@ then run “Git-commit”.  If GIT-PUSH is non-nil, run “Git-push” inside
 DIR.  If PRIVATE is non-nil, the repository will be created “public,”
 otherwise it will be created “private”."
   <<Asks for arguments when run interactively ma-github-create>>
-  (run-hooks 'ma-github-create-before-start-hook)
+  <<Run initial hooks>>
   (setq ma-github-last-repo-name name)
   (setq ma-github-last-repo-dir dir)
   (let ((progress-reporter
@@ -65,6 +65,12 @@ otherwise it will be created “private”."
          (yes-or-no-p "Initial commit? ")
          (yes-or-no-p "Push to Github? ")
          (not (yes-or-no-p "Public? ")))))
+#+end_src
+
+~<<Run initial hooks>> +≡~
+
+#+begin_src elisp :noweb-ref Run initial hooks
+(run-hooks 'ma-github-create-before-start-hook)
 #+end_src
 
 ** Main code structure
