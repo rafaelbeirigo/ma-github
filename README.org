@@ -37,8 +37,7 @@ otherwise it will be created “private”."
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
 
-    (ma-github-github-create name token private)
-    (progress-reporter-update progress-reporter 1)
+    <<Create remote repository>>
 
     (ma-github-local-create name dir)
     (progress-reporter-update progress-reporter 2)
@@ -83,6 +82,13 @@ otherwise it will be created “private”."
 #+begin_src elisp :noweb-ref Update "last repository" variables
 (setq ma-github-last-repo-name name)
 (setq ma-github-last-repo-dir dir)
+#+end_src
+
+~<<Create remote repository>> +≡~
+
+#+begin_src elisp :noweb-ref Create remote repository
+(ma-github-github-create name token private)
+(progress-reporter-update progress-reporter 1)
 #+end_src
 
 ** Main code structure
