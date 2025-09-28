@@ -108,26 +108,41 @@ otherwise it will be created “private”."
   (let ((progress-reporter
          (make-progress-reporter "Creating repository..." 0 5)))
     (progress-reporter-update progress-reporter 0)
-    (let ((api-url
-           (if (string-blank-p ma-github-api-url)
-               (read-string "API URL: ")
-             ma-github-api-url)))
+    (let* (
+           (api-url
+            (if (string-blank-p ma-github-api-url)
+                (read-string "API URL: ")
+              ma-github-api-url))
+           (username
+            (if (string-blank-p ma-github-username)
+                (read-string "username: ")
+              ma-github-username))
+           (token
+            (let ((entry (car (auth-source-search
+                               :host api-url
+                               :user username
+                               :max 1))))
+              (when entry
+                (let ((token (plist-get entry :secret)))
+                  (if (functionp token) (funcall token) token)))))
+           )
       (if (string-blank-p api-url)
-          (error "API URL cannot be empty")))
-    (let ((username
-           (if (string-blank-p ma-github-username)
-               (read-string "username: ")
-             ma-github-username)))
+          (error "API URL cannot be empty")
+        api-url)
       (if (string-blank-p username)
-          (error "username cannot be empty")))
-    (shell-command
-     (concat
-      "curl "
-      (concat "-H \"Authorization: token " token "\" ")
-      ma-github-url " "
-      (concat "-d '{\"name\":\"" name "\", "
-              "\"private\": " (if private "true" "false" ) "}'")))
-    (progress-reporter-update progress-reporter 1)
+          (error "username cannot be empty"))
+      (if (string-blank-p token)
+        (error "token cannot be empty")
+        (message token))
+      (shell-command
+       (concat
+        "curl "
+        (concat "-H \"Authorization: token " token "\" ")
+        ma-github-url " "
+        (concat "-d '{\"name\":\"" name "\", "
+                "\"private\": "
+                (if (yes-or-no-p "public?") "false" "true" ) "}'")))
+      )
     (when dir
       (ma-github-local-create name dir)
       (progress-reporter-update progress-reporter 2)

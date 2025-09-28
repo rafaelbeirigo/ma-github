@@ -35,22 +35,12 @@ otherwise it will be created “private”."
   <<Run initial hooks>>
   <<Update "last repository" variables>>
   <<Prepare the progress report>>
-    <<Create remote repository>>
+    <<Create the remote repository>>
     <<Maybe create, kickstart, and/or push local repository>>
   <<Run final hooks>>)
 #+end_src
 
 The remote repository is created with an external call to =curl=.
-Some preparation before the command is called will be needed, so we'll leave a placeholder for it.
-
-~<<Create remote repository>> +≡~
-
-#+begin_src elisp :noweb-ref Create remote repository
-<<Make sure we have all we need to create the remote repository>>
-<<Call curl to create the remote repository>>
-(progress-reporter-update progress-reporter 1)
-#+end_src
-
 The =curl= command (without escaping characters) has this form.
 
 #+begin_src shell
@@ -58,18 +48,6 @@ curl -H "Authorization: token TOKEN"
     https://api.github.com/user/repos
     -d '{"name":"NAME",
          "private":PRIVATE}'
-#+end_src
-
-~<<Call curl to create the remote repository>> +≡~
-
-#+begin_src elisp :noweb-ref Call curl to create the remote repository
-(shell-command
- (concat
-  "curl "
-  (concat "-H \"Authorization: token " token "\" ")
-  ma-github-url " "
-  (concat "-d '{\"name\":\"" name "\", "
-          "\"private\": " (if private "true" "false" ) "}'")))
 #+end_src
 
 We need an access token.
@@ -88,7 +66,23 @@ The lines of =~/.authinfo.gpg= have the following form.
 machine GITHUB_API_URL login USERNAME password TOKEN
 #+end_example
 
-The first thing we need is the Github API URL.
+Let's make sure we get all three.
+This has to be done in two steps, because we'll use ~let*~ to be able to access the value of the url /and/ username to fetch the token.
+~let*~ first do the attributions, and then allows us to use them.
+Finally, if we /did/ get all three, we call =curl= to create the remote repository.
+
+~<<Create the remote repository>> +≡~
+
+#+begin_src elisp :noweb-ref Create the remote repository
+(let* (
+       <<Do our best to get all three>>
+       )
+  <<Ensure we got all three>>
+  <<Call curl to create the remote repository>>
+  )
+#+end_src
+
+The first thing we ensure we have is the Github API URL.
 Let's create a variable for that.
 
 ~<<Customization Group and Variables>> +≡~
@@ -102,19 +96,28 @@ Let's create a variable for that.
 
 Now let's make sure we get one.
 
-~<<Make sure we have all we need to create the remote repository>> +≡~
+First we set it.
 
-#+begin_src elisp :noweb-ref Make sure we have all we need to create the remote repository
-(let ((api-url
-       (if (string-blank-p ma-github-api-url)
-           (read-string "API URL: ")
-         ma-github-api-url)))
-  (if (string-blank-p api-url)
-      (error "API URL cannot be empty")))
+~<<Do our best to get all three>> +≡~
+
+#+begin_src elisp :noweb-ref Do our best to get all three
+(api-url
+ (if (string-blank-p ma-github-api-url)
+     (read-string "API URL: ")
+   ma-github-api-url))
 #+end_src
 
-Then we need the username.
-Let's create a variable for that too.
+Then test it.
+
+~<<Ensure we got all three>> +≡~
+
+#+begin_src elisp :noweb-ref Ensure we got all three
+(if (string-blank-p api-url)
+    (error "API URL cannot be empty")
+  api-url)
+#+end_src
+
+Now the variable for the username, try to get it and test.
 
 ~<<Customization Group and Variables>> +≡~
 
@@ -125,18 +128,69 @@ Let's create a variable for that too.
   :group 'ma-github)
 #+end_src
 
-Now let's make sure we get a username.
+~<<Do our best to get all three>> +≡~
 
-~<<Make sure we have all we need to create the remote repository>> +≡~
-
-#+begin_src elisp :noweb-ref Make sure we have all we need to create the remote repository
-(let ((username
-       (if (string-blank-p ma-github-username)
-           (read-string "username: ")
-         ma-github-username)))
-  (if (string-blank-p username)
-      (error "username cannot be empty")))
+#+begin_src elisp :noweb-ref Do our best to get all three
+(username
+ (if (string-blank-p ma-github-username)
+     (read-string "username: ")
+   ma-github-username))
 #+end_src
+
+~<<Ensure we got all three>> +≡~
+
+#+begin_src elisp :noweb-ref Ensure we got all three
+(if (string-blank-p username)
+    (error "username cannot be empty"))
+#+end_src
+
+Finally the token.
+We won't be using variables for it for security reasons.
+Let's first try and fetch it.
+
+~<<Do our best to get all three>> +≡~
+
+#+begin_src elisp :noweb-ref Do our best to get all three
+(token
+ (let ((entry (car (auth-source-search
+                    :host api-url
+                    :user username
+                    :max 1))))
+   (when entry
+     (let ((token (plist-get entry :secret)))
+       (if (functionp token) (funcall token) token)))))
+#+end_src
+
+Then we see if we were able to fetch the access token.
+
+~<<Ensure we got all three>> +≡~
+
+#+begin_src elisp :noweb-ref Ensure we got all three
+(if (string-blank-p token)
+  (error "token cannot be empty")
+  (message token))
+#+end_src
+
+If we got everything we needed, we finally call =curl=.
+
+~<<Call curl to create the remote repository>> +≡~
+
+#+begin_src elisp :noweb-ref Call curl to create the remote repository
+(shell-command
+ (concat
+  "curl "
+  (concat "-H \"Authorization: token " token "\" ")
+  ma-github-url " "
+  (concat "-d '{\"name\":\"" name "\", "
+          "\"private\": "
+          (if (yes-or-no-p "public?") "false" "true" ) "}'")))
+#+end_src
+
+Those three parameters are required:
+- ~TOKEN~: Github API auth token;
+- ~NAME~: The name of the repository;
+- ~PRIVATE_FLAG~: Boolean variable controlling if the repository will be private.
+
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
 #+begin_src elisp :noweb-ref Asks for arguments when run interactively ma-github-create
