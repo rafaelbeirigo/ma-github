@@ -39,17 +39,7 @@ otherwise it will be created “private”."
 
     <<Create remote repository>>
 
-    (ma-github-local-create name dir)
-    (progress-reporter-update progress-reporter 2)
-
-    (ma-github-local-add-remote name dir)
-    (progress-reporter-update progress-reporter 3)
-
-    (when kickstart (ma-github-local-kickstart dir))
-    (progress-reporter-update progress-reporter 4)
-
-    (when git-push (ma-github-local-push dir))
-    (progress-reporter-done progress-reporter))
+    <<Maybe create, kickstart, and/or push local repository>>
   <<Run final hooks>>)
 #+end_src
 
@@ -89,6 +79,22 @@ otherwise it will be created “private”."
 #+begin_src elisp :noweb-ref Create remote repository
 (ma-github-github-create name token private)
 (progress-reporter-update progress-reporter 1)
+#+end_src
+
+~<<Maybe create, kickstart, and/or push local repository>> +≡~
+
+#+begin_src elisp :noweb-ref Maybe create, kickstart, and/or push local repository
+(ma-github-local-create name dir)
+(progress-reporter-update progress-reporter 2)
+
+(ma-github-local-add-remote name dir)
+(progress-reporter-update progress-reporter 3)
+
+(when kickstart (ma-github-local-kickstart dir))
+(progress-reporter-update progress-reporter 4)
+
+(when git-push (ma-github-local-push dir))
+(progress-reporter-done progress-reporter))
 #+end_src
 
 ** Main code structure
