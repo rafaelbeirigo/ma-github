@@ -23,7 +23,7 @@ It was made using Babel, from the Org Mode in Emacs.
 
 #+begin_src elisp :noweb-ref Function to create the repository
 (defun ma-github-create (name dir token kickstart git-push private)
-  "Create repository called NAME on Github, and inside directory DIR.
+  "Create repository NAME on Github.
 
 Use the access token TOKEN to connect to the Github API.  If KICKSTART
 is non-nil, create a blank file inside directory DIR, “Git-add” it,

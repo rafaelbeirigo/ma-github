@@ -93,7 +93,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
    (concat "git -C " dir " push -u origin master")))
 
 (defun ma-github-create (name dir token kickstart git-push private)
-  "Create repository called NAME on Github, and inside directory DIR.
+  "Create repository NAME on Github.
 
 Use the access token TOKEN to connect to the Github API.  If KICKSTART
 is non-nil, create a blank file inside directory DIR, “Git-add” it,
