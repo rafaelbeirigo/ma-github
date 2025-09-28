@@ -24,11 +24,7 @@ The code looks like this.
 #+begin_src elisp :tangle ma-github.el
 <<Customization Group and Variables>>
 
-(defvar ma-github-last-repo-name nil
-  "Name of the last repository created.")
-
-(defvar ma-github-last-repo-dir nil
-  "Directory of the last repository created.")
+<<Variables>>
 
 (defvar ma-github-create-before-start-hook nil
   "Hook run at the start of ‘ma-github-create’.")
@@ -160,4 +156,15 @@ otherwise it will be created “private”."
   "Environment variable containing the username."
   :type 'string
   :group 'ma-github)
+#+end_src
+
+** Variables
+~<<Variables>> +≡~
+
+#+begin_src elisp :noweb-ref Variables
+(defvar ma-github-last-repo-name nil
+  "Name of the last repository created.")
+
+(defvar ma-github-last-repo-dir nil
+  "Directory of the last repository created.")
 #+end_src
