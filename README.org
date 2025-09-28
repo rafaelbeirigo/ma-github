@@ -153,5 +153,4 @@ otherwise it will be created “private”."
     (when git-push (ma-github-local-push dir))
     (progress-reporter-done progress-reporter))
   (run-hooks 'ma-github-create-finalize-hook))
-
 #+end_src
