@@ -1,4 +1,15 @@
 # -*- auto-fill-function: nil; eval: (add-hook 'after-save-hook 'org-babel-tangle nil t); -*-
+
+----------------------------------------------------------------------
+NEXT: Reorganize branch dev and rebase it onto master.
+Create copy README-dev.org of its counterpart at the tip of dev.
+Create a branch goal at dev.
+Reset dev hard to master.
+List all changes in README-dev.org.
+Gradually add them to dev.
+----------------------------------------------------------------------
+
+
 Create repositories on Github from inside Emacs.
 
 * Usage
