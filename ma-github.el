@@ -92,7 +92,7 @@ The repository will be created “public” unless PRIVATE is non-nil."
   (shell-command
    (concat "git -C " dir " push -u origin master")))
 
-(defun ma-github-create (name dir token kickstart git-push private)
+(defun ma-github-create (name &optional dir token kickstart git-push private)
   "Create repository NAME on Github.
 
 Use the access token TOKEN to connect to the Github API.  If KICKSTART
