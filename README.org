@@ -84,7 +84,7 @@ We'll use =auth-source.el= for that.
 The lines of =~/.authinfo.gpg= have the following form.
 
 #+begin_example
-machine api.github.com login USERNAME password TOKEN
+machine GITHUB_API_URL login USERNAME password TOKEN
 #+end_example
 ~<<Asks for arguments when run interactively ma-github-create>> +≡~
 
