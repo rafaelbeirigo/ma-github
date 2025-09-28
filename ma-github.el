@@ -1,4 +1,8 @@
 (require 'auth-source)
+(defcustom ma-github-api-url "api.github.com"
+  "Github API URL."
+  :type 'string
+  :group 'ma-github)
 (defgroup ma-github nil
   "Interact with Github.")
 
