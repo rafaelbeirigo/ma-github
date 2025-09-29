@@ -178,8 +178,7 @@ Then we see if we were able to fetch the access token.
 
 #+begin_src elisp :noweb-ref Ensure we got all three
 (if (string-blank-p token)
-  (error "token cannot be empty")
-  (message token))
+  (error "token cannot be empty"))
 #+end_src
 
 If we got everything we needed, we finally call =curl=.

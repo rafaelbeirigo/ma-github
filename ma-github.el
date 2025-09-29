@@ -132,8 +132,7 @@ otherwise it will be created “private”."
       (if (string-blank-p username)
           (error "username cannot be empty"))
       (if (string-blank-p token)
-        (error "token cannot be empty")
-        (message token))
+        (error "token cannot be empty"))
       (shell-command
        (concat
         "curl "
