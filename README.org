@@ -9,6 +9,8 @@ List all changes in README-dev.org.
 Gradually add them to dev.
 ----------------------------------------------------------------------
 
+FIX: after creating a repo in the URL to push, the username was absent
+
 
 Create repositories on Github from inside Emacs.
 
